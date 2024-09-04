@@ -108,7 +108,7 @@ const ChartLine = () => {
                         ],
                     },
                 },
-            })
+            });
             // Clean up function
             return () => {
                 // Destroy chart instance when component unmounts

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 import { CiExport } from "react-icons/ci";
 import ChartLine from './ChartLine';
-import ChartAverage from './ChartAverage'
+// import ChartAverage from './ChartAverage'
 import ApexChart from './ApexChart'
 import ApexChartCoulm from './ApexChartCoulm'
 import GeoChart from './GeoChart'
@@ -75,7 +75,7 @@ const Dashboard = () => {
         {/* second */}
         <div className='grid grid-cols-12 gap-6 px-8 my-5'>
           <div className='xl:col-span-5 col-span-12 rounded-lg border border-gray-200'>
-            <ChartAverage />
+            {/* <ChartAverage /> */}
           </div>
           <div className='xl:col-span-3 col-span-12 rounded-lg border border-gray-200'>
             <ApexChart />

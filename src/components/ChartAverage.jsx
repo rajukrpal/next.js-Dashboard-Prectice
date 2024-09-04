@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useRef } from 'react';
 import Chart from "chart.js";
 
@@ -9,10 +9,13 @@ const ChartAverage = () => {
     useEffect(() => {
         if (chartRef && chartRef.current) {
             const myChartRef = chartRef.current.getContext("2d");
-            // Destroy previous chart instance
+
+            // Destroy previous chart instance if it exists
             if (chartInstanceRef.current !== null) {
                 chartInstanceRef.current.destroy();
             }
+
+            // Create new chart instance
             chartInstanceRef.current = new Chart(myChartRef, {
                 type: "bar",
                 data: {
@@ -45,29 +48,27 @@ const ChartAverage = () => {
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
-                    title: {
-                        display: false,
-                        text: "Orders Chart",
-                    },
-                    tooltips: {
-                        mode: "index",
-                        intersect: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                fontColor: "rgba(0,0,0,.4)",
+                            },
+                            align: "end",
+                            position: "bottom",
+                        },
+                        tooltip: {
+                            mode: "index",
+                            intersect: false,
+                        },
                     },
                     hover: {
                         mode: "nearest",
                         intersect: true,
                     },
-                    legend: {
-                        labels: {
-                            fontColor: "rgba(0,0,0,.4)",
-                        },
-                        align: "end",
-                        position: "bottom",
-                    },
                     scales: {
                         x: {
-                            barPercentage: 40,
-                            categoryPercentage: 20,
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.5,
                             grid: {
                                 display: false,
                             },
@@ -88,44 +89,38 @@ const ChartAverage = () => {
                         },
                     },
                 },
-
             });
+
             // Clean up function
             return () => {
-                // Destroy chart instance when component unmounts
                 if (chartInstanceRef.current !== null) {
                     chartInstanceRef.current.destroy();
                 }
             };
         }
-        let ctx = document.getElementById("bar-chart").getContext("2d");
-        new Chart(ctx, config);
-    }, []);
+    }, []); // Empty dependency array means this runs once on mount
 
     return (
-        <>
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded h-full">
-                <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
-                    <div className="flex flex-wrap items-center">
-                        <div className="relative w-full max-w-full flex-grow flex-1">
-                            <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                                Performance
-                            </h6>
-                            <h2 className="text-blueGray-700 text-xl font-semibold">
-                                Total orders
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex-auto">
-                    {/* Chart */}
-                    <div className="relative h-350-px h-72">
-                        <canvas ref={chartRef} id="bar-chart"></canvas>
+        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded h-full">
+            <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
+                <div className="flex flex-wrap items-center">
+                    <div className="relative w-full max-w-full flex-grow flex-1">
+                        <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
+                            Performance
+                        </h6>
+                        <h2 className="text-blueGray-700 text-xl font-semibold">
+                            Total orders
+                        </h2>
                     </div>
                 </div>
             </div>
-        </>
-    )
+            <div className="p-4 flex-auto">
+                <div className="relative h-350-px h-72">
+                    <canvas ref={chartRef} id="bar-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default ChartAverage;
