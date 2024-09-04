@@ -7,12 +7,16 @@ import Link from 'next/link'
 import React from 'react'
 import { CiExport } from "react-icons/ci";
 import ChartLine from './ChartLine';
-// import ChartAverage from './ChartAverage'
-import ApexChart from './ApexChart'
-import ApexChartCoulm from './ApexChartCoulm'
+import ChartAverage from './ChartAverage'
 import GeoChart from './GeoChart'
-import VolumeChart from './VolumeChart'
 import TopProducts from './TopProducts'
+import dynamic from 'next/dynamic';
+// import ApexChart from './ApexChart'
+const ApexChart = dynamic(() => import('../components/ApexChart'), { ssr: false });
+// import ApexChartCoulm from './ApexChartCoulm'
+const ApexChartCoulm = dynamic(() => import('../components/ApexChartCoulm'), { ssr: false });
+// import VolumeChart from './VolumeChart'
+const VolumeChart = dynamic(() => import('../components/VolumeChart'), { ssr: false });
 
 
 const Dashboard = () => {
@@ -75,7 +79,7 @@ const Dashboard = () => {
         {/* second */}
         <div className='grid grid-cols-12 gap-6 px-8 my-5'>
           <div className='xl:col-span-5 col-span-12 rounded-lg border border-gray-200'>
-            {/* <ChartAverage /> */}
+            <ChartAverage />
           </div>
           <div className='xl:col-span-3 col-span-12 rounded-lg border border-gray-200'>
             <ApexChart />
